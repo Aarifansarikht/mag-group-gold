@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/ui/PageHeader';
-import { PRODUCTS } from '@/lib/data';
+import { PRODUCTS, serviceList } from '@/lib/data';
 import { Button } from '@/components/ui/Primitives';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { IMAGES } from '@/lib/constants';
 
-const ProductCard = ({ item }: { item: any }) => (
+const ProductCard = ({ item, activeTab }: { item: any; activeTab: any }) => (
   <Link href={`/products/${item.id}`}>
       <motion.div 
         layout
@@ -40,11 +40,15 @@ const ProductCard = ({ item }: { item: any }) => (
           <p className="text-yellow-300 text-xs font-mono font-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">{item.spec}</p>
           <h3 className="text-white font-display text-2xl font-bold mb-4">{item.title}</h3>
           
-          <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+         <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+          {activeTab === "drainage" ? (
             <Button size="sm" className="bg-white text-ink hover:bg-tech-100 rounded-xl h-10 px-4 text-[10px]">
-                View Specs
+              View Specs
             </Button>
-          </div>
+          ) : (
+            <></>
+          )}
+        </div>
         </div>
       </motion.div>
   </Link>
@@ -53,12 +57,14 @@ const ProductCard = ({ item }: { item: any }) => (
 export default function SolutionsPage() {
   const [activeTab, setActiveTab] = useState<'drainage' | 'steel'>('drainage');
 
-  // Filter products based on categories in data
-  const drainageProducts = PRODUCTS.filter(p => !['Structural Beams', 'Mezzanines', 'Stadium Canopies'].includes(p.title));
-  const steelProducts = PRODUCTS.filter(p => ['Structural Beams', 'Mezzanines', 'Stadium Canopies'].includes(p.title));
-  
-  const displayProducts = activeTab === 'drainage' ? drainageProducts : steelProducts;
+    // Filter products based on categories in data
+  const drainageProducts = PRODUCTS.filter(
+    (p) => p.category !== "Structural Steel" && p.category !== "Steel Fabrication"
+  );
 
+  const steelProducts = serviceList;
+
+  const displayProducts = activeTab === "drainage" ? drainageProducts : steelProducts;
   return (
     <div className="flex min-h-screen flex-col bg-paper text-ink font-sans selection:bg-cobalt selection:text-white">
       <Header />
@@ -125,7 +131,7 @@ export default function SolutionsPage() {
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {displayProducts.map((item) => (
-                                <ProductCard key={item.id} item={item} />
+                                <ProductCard key={item.id} item={item} activeTab={activeTab} />
                             ))}
                         </div>
                     </motion.div>

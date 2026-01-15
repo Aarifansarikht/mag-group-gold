@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { IMAGES } from '@/lib/constants';
+import { serviceList } from '@/lib/data';
 
 // Scroll Animation Wrapper
 const SectionReveal = ({ children, className }: any) => (
@@ -220,50 +221,56 @@ export default function PrecisionLanding() {
                    </p>
               </SectionReveal>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                 <ProductCard 
-                    index={0}
-                    title="Linear Channels" 
-                    subtitle="Minimalist stainless steel shower channels and slot drains that disappear into the floor finish."
-                    image={IMAGES.products.floor_drain}
-                    link="/products/shower-drains"
-                 />
-                 <ProductCard 
-                    index={1}
-                    title="Infrastructure Castings" 
-                    subtitle="Heavy-duty ductile iron manhole covers for highways, ports, and municipal roads (D400-F900)."
-                    image={IMAGES.products.manhole}
-                    link="/products/manhole-covers"
-                 />
-                 <ProductCard 
-                    index={2}
-                    title="Hygienic Systems" 
-                    subtitle="SS316 slot channels with odor-seal traps for commercial kitchens and food processing facilities."
-                    image={IMAGES.products.kitchen}
-                    link="/products/kitchen-channels"
-                 />
-                 <ProductCard 
-                    index={3}
-                    title="Roof & Balcony" 
-                    subtitle="High-flow aluminum and cast iron rainwater outlets and scupper drains."
-                    image={IMAGES.products.scupper}
-                    link="/products/rainwater-outlets"
-                 />
-                 <ProductCard 
-                    index={4}
-                    title="Parking Drains" 
-                    subtitle="Robust floor drains with sediment buckets designed for multi-story car parks."
-                    image={IMAGES.products.parking}
-                    link="/products/parking-drains"
-                 />
-                 <ProductCard 
-                    index={5}
-                    title="Gully Gratings" 
-                    subtitle="Ductile iron hinged gratings for roadside stormwater capture."
-                    image={IMAGES.products.grating}
-                    link="/products/gully-gratings"
-                 />
-              </div>
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <ProductCard
+                index={0}
+                title="Linear Channels"
+                subtitle="Minimalist stainless steel shower channels and slot drains that seamlessly integrate into modern floor finishes."
+                image={IMAGES.products.shower_drains}
+                link="/products/shower-drains"
+              />
+
+              <ProductCard
+                index={1}
+                title="Manhole Covers"
+                subtitle="Heavy-duty ductile iron manhole covers for highways, ports, airports, and municipal roads (D400–F900)."
+                image={IMAGES.products.manhole_covers}
+                link="/products/manhole-covers"
+              />
+
+              <ProductCard
+                index={2}
+                title="Hygienic Drainage Systems"
+                subtitle="SS316 slot and channel drainage systems with odor-seal traps for commercial kitchens and food processing areas."
+                image={IMAGES.products.kitchen_drainage}
+                link="/products/kitchen-drainage"
+              />
+
+              <ProductCard
+                index={3}
+                title="Roof & Balcony Drainage"
+                subtitle="High-flow rainwater outlets and roof scupper drains for podiums, balconies, and flat roofs."
+                image={IMAGES.products.rainwater_outlets}
+                link="/products/rainwater-outlets"
+              />
+
+              <ProductCard
+                index={4}
+                title="Parking & Area Drains"
+                subtitle="Heavy-duty drainage solutions with sediment buckets for basements and multi-storey parking structures."
+                image={IMAGES.products.parking_area}
+                link="/products/parking-area-drains"
+              />
+
+              <ProductCard
+                index={5}
+                title="Gully Gratings"
+                subtitle="Ductile iron hinged gully gratings designed for roadside and surface stormwater management."
+                image={IMAGES.products.gully_gratings}
+                link="/products/gully-gratings"
+              />
+            </div>
+
               
               <div className="mt-12 md:mt-16 text-center">
                  <Link href="/products">
@@ -306,33 +313,19 @@ export default function PrecisionLanding() {
                  </div>
               </SectionReveal>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 <ServiceCard 
-                    index={0}
-                    title="Heavy Structures" 
-                    subtitle="Primary skeletons for industrial and commercial buildings. Large clear spans and high-load capacities."
-                    image={IMAGES.steel.beams_hero}
-                    specs={["ASTM A572", "CNC Drilling", "Sub-Arc Welding"]}
-                    link="/products/structural-beams"
-                 />
-                 <ServiceCard 
-                    index={1}
-                    title="Logistics & Storage" 
-                    subtitle="Turnkey mezzanine floors and logistics storage systems designed for rapid deployment."
-                    image={IMAGES.steel.mezzanine}
-                    specs={["1000kg/m² Load", "Modular Design", "Fast Assembly"]}
-                    link="/products/mezzanines"
-                 />
-                 <ServiceCard 
-                    index={2}
-                    title="Specialized Systems" 
-                    subtitle="Complex geometries for stadium canopies, bridges, and architectural landmarks."
-                    image={IMAGES.steel.stadium}
-                    specs={["3D Modeling", "Tension Rods", "Complex Nodes"]}
-                    link="/products/stadiums"
-                 />
-              </div>
-              
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+  {serviceList.slice(0, 6).map((service, index) => (
+    <ServiceCard
+      key={service.title}
+      index={index}
+      title={service.title}
+      subtitle={service.desc}
+      image={service.image}
+      specs={service.items}
+      link="/services"
+    />
+  ))}
+</div>
               <div className="mt-12 md:mt-16 text-center">
                  <Link href="/services">
                     <Button variant="outline" className="border-stone-600 text-white hover:bg-white hover:text-black hover:border-white h-12 md:h-14 px-10 md:px-12 rounded-full backdrop-blur-sm bg-white/5 text-xs md:text-sm">
